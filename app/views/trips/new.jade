@@ -1,0 +1,50 @@
+extends ../shared/template
+block content
+  .panel.panel-default
+    .panel-body
+      form.form-horizontal(role='form', method='post', action='/trips', enctype='multipart/form-data')
+        input(type='hidden', name='orig-lat')
+        input(type='hidden', name='orig-lng')
+        input(type='hidden', name='dest-lat')
+        input(type='hidden', name='dest-lng')
+        input(type='hidden', name='distance')
+        .form-group
+          label.col-xs-2.control-label Name:
+          .col-xs-10
+            input.form-control(name='name', type='text', placeholder='Las Vegas 2014')
+        .form-group
+          label.col-xs-2.control-label Cash:
+          .col-xs-10
+            input.form-control(name='cash', type='number', step='any', placeholder='800.00')
+        .form-group
+          label.col-xs-2.control-label Origin:
+          .col-xs-4
+            input.form-control(name='origin', type='text', placeholder='Nashville, TN')
+          label.col-xs-2.control-label Destination:
+          .col-xs-4
+            input.form-control(name='destination', type='text', placeholder='Las Vegas, NV')
+        .form-group
+          label.col-xs-2.control-label From:
+          .col-xs-4
+            input.form-control(name='start', type='date')
+          label.col-xs-2.control-label To:
+          .col-xs-4
+            input.form-control(name='to', type='date')
+        .form-group
+          label.col-xs-2.control-label MPG:
+          .col-xs-10
+            input.form-control(name='mpg', type='number', step='any', placeholder='55')
+        .form-group
+          label.col-xs-2.control-label Cost gas per gal:
+          .col-xs-10
+            input.form-control(name='gasPerGal', type='number', step='any', placeholder='3.50')
+        .form-group
+          label.col-xs-2.control-label Car Photo:
+          .col-xs-10
+            input(type='file', name='photo', multiple=false)
+        .form-group
+          .col-xs-2
+          .col-xs-10
+            button.btn.btn-primary.btn-lg(type='submit') Add Trip
+
+block scripts
