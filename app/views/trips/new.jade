@@ -11,33 +11,33 @@ block content
         .form-group
           label.col-xs-2.control-label Name:
           .col-xs-10
-            input.form-control(name='name', type='text', placeholder='Las Vegas 2014')
+            input.form-control(name='name', type='text', placeholder='Las Vegas 2014', value='Las Vegas 2014')
         .form-group
           label.col-xs-2.control-label Cash:
           .col-xs-10
-            input.form-control(name='cash', type='number', step='any', placeholder='800.00')
+            input.form-control(name='cash', type='number', step='any', placeholder='800.00', value='800')
         .form-group
           label.col-xs-2.control-label Origin:
           .col-xs-4
-            input.form-control(name='origin', type='text', placeholder='Nashville, TN')
+            input.form-control(name='origin', type='text', placeholder='Nashville, TN', value='Nashville, TN')
           label.col-xs-2.control-label Destination:
           .col-xs-4
-            input.form-control(name='destination', type='text', placeholder='Las Vegas, NV')
+            input.form-control(name='destination', type='text', placeholder='Las Vegas, NV', value='Las Vegas, NV')
         .form-group
           label.col-xs-2.control-label From:
           .col-xs-4
-            input.form-control(name='start', type='date')
+            input.form-control(name='start', type='date', value='2014-08-01')
           label.col-xs-2.control-label To:
           .col-xs-4
-            input.form-control(name='to', type='date')
+            input.form-control(name='to', type='date', value='2014-09-01')
         .form-group
           label.col-xs-2.control-label MPG:
           .col-xs-10
-            input.form-control(name='mpg', type='number', step='any', placeholder='55')
+            input.form-control(name='mpg', type='number', step='any', placeholder='55', value='55')
         .form-group
           label.col-xs-2.control-label Cost gas per gal:
           .col-xs-10
-            input.form-control(name='gasPerGal', type='number', step='any', placeholder='3.50')
+            input.form-control(name='gasPerGal', type='number', step='any', placeholder='3.50', value='3.50')
         .form-group
           label.col-xs-2.control-label Car Photo:
           .col-xs-10
@@ -48,3 +48,4 @@ block content
             button.btn.btn-primary.btn-lg(type='submit') Add Trip
 
 block scripts
+  script(src='/js/user/trips-new.js')
