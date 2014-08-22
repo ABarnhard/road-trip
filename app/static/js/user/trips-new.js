@@ -28,6 +28,7 @@
         // console.log('points', points);
         calcRoute(points, function(response){
           // console.log('response', response);
+          // distance.value is in meters, must convert cause 'Merica
           var miles = response.routes[0].legs[0].distance.value * 0.00062137;
           $('input[name=distance]').val(miles);
           $('form').submit();
