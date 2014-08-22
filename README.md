@@ -1,32 +1,22 @@
-## name of project
+## Road Trip
 ### Code Badges
-build status icon
-coverage status icon
+[![Build Status](https://travis-ci.org/ABarnhard/road-trip.svg)](https://travis-ci.org/ABarnhard/road-trip)
+[![Coverage Status](https://coveralls.io/repos/ABarnhard/road-trip/badge.png)](https://coveralls.io/r/ABarnhard/road-trip)
 
 ### About
-write a description about your project
+A road trip management application
 
 ### Models
 ```
-Model 1
-prop-a
-prop-b
-.classMethod-c
-#instanceMethod-d
+Trip
 ```
 
 ```
-Model 2
-prop-e
-prop-f
-.classMethod-g
-#instanceMethod-h
+Stop
 ```
 
 ### Features
-- feature 1
-- feature 2
-- feature 3
+- OOP
 
 ### Running Tests
 ```bash
@@ -35,7 +25,7 @@ $ npm test
 ```
 
 ### Contributors
-- [Chyld Medford](https://github.com/chyld)
+- [Adam Barnhard](https://github.com/abarnhard)
 
 ### License
 [MIT](LICENSE)
