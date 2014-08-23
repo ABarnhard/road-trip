@@ -1,6 +1,7 @@
 'use strict';
 
-var Mongo = require('mongodb');
+var Mongo = require('mongodb'),
+    _     = require('lodash');
 
 function Trip(o){
   this._id            = Mongo.ObjectID();
@@ -13,14 +14,28 @@ function Trip(o){
   this.to             = new Date(o.to[0]);
   this.mpg            = o.mpg[0] * 1;
   this.costPerGal     = o.costPerGal[0] * 1;
+  this.stops          = 0;
+  this.photos         = 0;
+  this.events         = 0;
 }
 
 Object.defineProperty(Trip, 'collection', {
   get: function(){return global.mongodb.collection('trips');}
 });
 
+Object.defineProperty(Trip.prototype, 'gallons', {
+  get: function(){return this.distance / this.mpg;}
+});
+
+Object.defineProperty(Trip.prototype, 'cost', {
+  get: function(){return this.gallons * this.costPerGal;}
+});
+
 Trip.all = function(cb){
-  Trip.collection.find().toArray(cb);
+  Trip.collection.find().toArray(function(err, objs){
+    var trips = objs.map(function(o){return _.create(Trip.prototype, o);});
+    cb(err, trips);
+  });
 };
 
 module.exports = Trip;

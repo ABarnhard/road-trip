@@ -7,7 +7,7 @@ var expect    = require('chai').expect,
     Person    = require('../../app/models/stop'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
-    db        = 'template-test';
+    db        = 'road-trip-test';
 
 describe('Person', function(){
   before(function(done){

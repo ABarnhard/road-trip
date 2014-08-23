@@ -23,7 +23,8 @@ var expect    = require('chai').expect,
       to:['2014-09-10'],
       mpg:['55'],
       costPerGal:['3.50']
-    };
+    },
+    t;
 
 describe('Trip', function(){
   before(function(done){
@@ -34,13 +35,13 @@ describe('Trip', function(){
 
   beforeEach(function(done){
     cp.execFile(__dirname + '/../scripts/clean-db.sh', [db], {cwd:__dirname + '/../scripts'}, function(err, stdout, stderr){
+      t = new Trip(obj);
       done();
     });
   });
 
   describe('constructor', function(){
     it('should create a new Trip object', function(){
-      var t = new Trip(obj);
       expect(t).to.be.instanceof(Trip);
       expect(t._id).to.be.instanceof(Mongo.ObjectID);
       expect(t.name).to.equal('Test');
@@ -56,6 +57,21 @@ describe('Trip', function(){
       expect(t.to).to.respondTo('getDate');
       expect(t.mpg).to.be.closeTo(55, 0.1);
       expect(t.costPerGal).to.be.closeTo(3.50, 0.1);
+      expect(t.stops).to.equal(0);
+      expect(t.photos).to.equal(0);
+      expect(t.events).to.equal(0);
+    });
+  });
+
+  describe('#gallons', function(){
+    it('should return the number of gallons the trip takes', function(){
+      expect(t.gallons).to.be.closeTo(5.45, 0.1);
+    });
+  });
+
+  describe('#cost', function(){
+    it('should return the total cost of gas for the trip', function(){
+      expect(t.cost).to.be.closeTo(19.07, 0.1);
     });
   });
 
