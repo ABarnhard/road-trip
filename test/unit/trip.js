@@ -4,12 +4,28 @@
 'use strict';
 
 var expect    = require('chai').expect,
-    Person    = require('../../app/models/person'),
+    Trip      = require('../../app/models/trip'),
     dbConnect = require('../../app/lib/mongodb'),
+    Mongo     = require('mongodb'),
     cp        = require('child_process'),
-    db        = 'template-test';
+    db        = 'road-trip-test',
+    obj       = {
+      name:['Test'],
+      cash:['500'],
+      origin:['Test, USA'],
+      origLat:['0'],
+      origLng:['0'],
+      destination:['Test 2, USA'],
+      destLat:['1'],
+      destLng:['1'],
+      distance:['300'],
+      from:['2014-09-01'],
+      to:['2014-09-10'],
+      mpg:['55'],
+      costPerGal:['3.50']
+    };
 
-describe('Person', function(){
+describe('Trip', function(){
   before(function(done){
     dbConnect(db, function(){
       done();
@@ -23,16 +39,30 @@ describe('Person', function(){
   });
 
   describe('constructor', function(){
-    it('should create a new Person object', function(){
-      var p = new Person();
-      expect(p).to.be.instanceof(Person);
+    it('should create a new Trip object', function(){
+      var t = new Trip(obj);
+      expect(t).to.be.instanceof(Trip);
+      expect(t._id).to.be.instanceof(Mongo.ObjectID);
+      expect(t.name).to.equal('Test');
+      expect(t.cash).to.be.closeTo(500, 0.1);
+      expect(t.originLoc.name).to.equal('Test, USA');
+      expect(t.originLoc.lat).to.be.closeTo(0, 0.01);
+      expect(t.originLoc.lng).to.be.closeTo(0, 0.01);
+      expect(t.destinationLoc.name).to.equal('Test 2, USA');
+      expect(t.destinationLoc.lat).to.be.closeTo(1, 0.01);
+      expect(t.destinationLoc.lng).to.be.closeTo(1, 0.01);
+      expect(t.distance).to.be.closeTo(300, 0.1);
+      expect(t.from).to.respondTo('getDate');
+      expect(t.to).to.respondTo('getDate');
+      expect(t.mpg).to.be.closeTo(55, 0.1);
+      expect(t.costPerGal).to.be.closeTo(3.50, 0.1);
     });
   });
 
   describe('.all', function(){
-    it('should get all people', function(done){
-      Person.all(function(err, people){
-        expect(people).to.have.length(2);
+    it('should get all trips', function(done){
+      Trip.all(function(err, trips){
+        expect(trips).to.have.length(3);
         done();
       });
     });

@@ -13,15 +13,15 @@
     geocode(origin, function(name, lat, lng){
       // console.log('geocode', name, lat, lng);
       $('input[name=origin]').val(name);
-      $('input[name=orig-lat]').val(lat);
-      $('input[name=orig-lng]').val(lng);
+      $('input[name=origLat]').val(lat);
+      $('input[name=origLng]').val(lng);
       var begin       = new google.maps.LatLng(lat, lng),
           destination = $('input[name=destination]').val();
       geocode(destination, function(name, lat, lng){
         // console.log('geocode', name, lat, lng);
         $('input[name=destination]').val(name);
-        $('input[name=dest-lat]').val(lat);
-        $('input[name=dest-lng]').val(lng);
+        $('input[name=destLat]').val(lat);
+        $('input[name=destLng]').val(lng);
         var end    = new google.maps.LatLng(lat, lng),
             points = [];
         points.push(begin, end);

@@ -4,7 +4,7 @@
 'use strict';
 
 var expect    = require('chai').expect,
-    Person    = require('../../app/models/person'),
+    Person    = require('../../app/models/stop'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
     db        = 'template-test';
@@ -32,7 +32,7 @@ describe('Person', function(){
   describe('.all', function(){
     it('should get all people', function(done){
       Person.all(function(err, people){
-        expect(people).to.have.length(2);
+        expect(people).to.have.length(3);
         done();
       });
     });
