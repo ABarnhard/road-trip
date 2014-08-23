@@ -10,6 +10,9 @@ exports.create = function(req, res){
 };
 
 exports.show = function(req, res){
+  Stop.findById(req.params.stopId, function(err, s){
+    res.render('stops/show', {stop:s});
+  });
 };
 
 exports.addEvent = function(req, res){
