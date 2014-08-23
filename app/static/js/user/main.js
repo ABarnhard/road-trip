@@ -23,7 +23,7 @@ function cartographer(cssId, lat, lng, zoom){
 
 function calcRoute(waypoints, cb){
   'use strict';
-  console.log('waypoints', waypoints);
+  // console.log('waypoints', waypoints);
   var directionsService = new google.maps.DirectionsService(),
       origin            = waypoints[0],
       destination       = waypoints[waypoints.length - 1];
@@ -36,10 +36,10 @@ function calcRoute(waypoints, cb){
     origin:origin,
     destination:destination,
     waypoints:waypoints,
-    optimizeWaypoints:true,
+    optimizeWaypoints:false,
     travelMode:google.maps.TravelMode.DRIVING
   };
-  console.log('request', request);
+  // console.log('request', request);
   directionsService.route(request, function(response, status){
     if(status === google.maps.DirectionsStatus.OK){
       //console.log('response', response);

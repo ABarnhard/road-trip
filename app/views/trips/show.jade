@@ -13,14 +13,17 @@ block content
           h4 Stops:
           ol
             each stop in trip.stops
-              li(data-name='#{stop.loc.name}', data-lat='stop.loc.lat', data-lng='stop.loc.lng'): a(href='/trips/#{trip._id}/stops/#{stop._id}')= stop.loc.name
+              li(data-name='#{stop.loc.name}', data-lat='#{stop.loc.lat}', data-lng='#{stop.loc.lng}'): a(href='/trips/#{trip._id}/stops/#{stop._id}')= stop.loc.name
         .col-xs-6
           h4 Add Stops:
-          form(role='form', method='post', action='/trips/#{trip._id}/stops')
+          form(role='form', method='post', action='/trips/#{trip._id}/stops', data-trip-id='#{trip._id}')
             .form-group
               button.btn.btn-info.btn-xs(type='button') + Stops
             .form-group.stop-group
-              input.form-control(name='stops', type='text', placeholder='Tuscon, AZ')
+              input.form-control(name='stop1[name]', type='text', data-id='name', placeholder='Tucson, AZ')
+              input(type='hidden', name='stop1[lat]', data-id='lat')
+              input(type='hidden', name='stop1[lng]', data-id='lng')
+              input(type='hidden', name='stop1[tripId]', data-id='tripId', value='#{trip._id}')
             button.btn.btn-primary(type='submit') Add Stops
       .row
         .col-xs-12
@@ -28,5 +31,6 @@ block content
           #directions
 
 block scripts
+  script(src='/js/vendor/async.js')
   script(src='/js/user/trips-show.js')
 

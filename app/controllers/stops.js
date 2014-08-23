@@ -3,8 +3,9 @@
 var Stop = require('../models/stop');
 
 exports.create = function(req, res){
+  console.log(req.body);
   Stop.create(req.body, function(){
-    res.redirect('/treasures/' + req.params.tripId);
+    res.redirect('/trips/' + req.params.tripId);
   });
 };
 
