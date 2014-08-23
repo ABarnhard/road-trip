@@ -21,5 +21,10 @@ Stop.find = function(id, cb){
   Stop.collection.find({tripId:id}).toArray(cb);
 };
 
+Stop.create = function(obj, cb){
+  var s = new Stop(obj);
+  Stop.collection.save(s, cb);
+};
+
 module.exports = Stop;
 

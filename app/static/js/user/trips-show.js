@@ -3,7 +3,8 @@
 (function(){
   'use strict';
 
-  var map;
+  var count = 1,
+      map;
 
   $(document).ready(function(){
     $('button[type=button]').click(addStop);
@@ -25,8 +26,10 @@
     var $last  = $('form > .stop-group:last-of-type'),
         $clone = $last.clone(),
         $i     = $clone.children('input');
+    count++;
     $i.val('');
     $i.attr('placeholder', '');
+    $i.attr('name', 'stops['+count+']');
     $last.after($clone);
     $i.focus();
   }
