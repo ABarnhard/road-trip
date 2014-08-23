@@ -1,20 +1,40 @@
 {
   "_id":{"$oid":"000000000000000000000001"},
-  "name":"Bob Jones",
-  "age":25,
-  "money":12834.45,
-  "birthday":{"$date":477295200000},
-  "photo":"http://images.com/bob.jpg",
-  "isEmployed":true,
-  "atomsInBody":7600500400300200100,
-  "spouse":{"name":"Janet", "age":21},
-  "things":["blue", 3, 3.14, true, null, {"a":7}, [3,5,7]],
-  "address":{"$undefined":true},
-  "resume":null,
-  "employeeId":{"$oid":"000000000000000000000002"}
+  "name":"Las Vegas 2014",
+  "cash":800.00,
+  "origin-loc":{"name":"Nashville, TN, USA", "lat":36.166667, "lng":-86.78333299999997},
+  "destination-loc":{"name":"Las Vegas, NV, USA", "lat":36.1699412, "lng":-115.13982959999998},
+  "distance":1789.07087332,
+  "from":{"$date":1406851200000},
+  "to":{"$date":1409529600000},
+  "mpg":55,
+  "costPerGal":3.50,
+  "photo":"/img/000000000000000000000001/car.jpg"
+}
+{
+  "_id":{"$oid":"000000000000000000000002"},
+  "name":"Las Vegas 2 2014",
+  "cash":500.00,
+  "origin-loc":{"name":"Nashville, TN, USA", "lat":36.166667, "lng":-86.78333299999997},
+  "destination-loc":{"name":"Las Vegas, NV, USA", "lat":36.1699412, "lng":-115.13982959999998},
+  "distance":1789.07087332,
+  "from":{"$date":1406851200000},
+  "to":{"$date":1409529600000},
+  "mpg":35,
+  "costPerGal":3.50,
+  "photo":"/img/000000000000000000000002/car.jpg"
 }
 {
   "_id":{"$oid":"000000000000000000000003"},
-  "name":"Jane Marsh"
+  "name":"Las Vegas 3 2014",
+  "cash":100.00,
+  "origin-loc":{"name":"Nashville, TN, USA", "lat":36.166667, "lng":-86.78333299999997},
+  "destination-loc":{"name":"Las Vegas, NV, USA", "lat":36.1699412, "lng":-115.13982959999998},
+  "distance":1789.07087332,
+  "from":{"$date":1406851200000},
+  "to":{"$date":1409529600000},
+  "mpg":15,
+  "costPerGal":3.50,
+  "photo":"/img/000000000000000000000003/car.jpg"
 }
 
