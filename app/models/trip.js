@@ -42,5 +42,17 @@ Trip.all = function(cb){
   });
 };
 
+Trip.findById = function(id, cb){
+  id = Mongo.ObjectID(id);
+  Trip.collection.findOne({_id:id}, function(err, obj){
+    var t = _.create(Trip.prototype, obj);
+    cb(err, t);
+  });
+};
+
+Trip.prototype.save = function(cb){
+  Trip.collection.save(this, cb);
+};
+
 module.exports = Trip;
 

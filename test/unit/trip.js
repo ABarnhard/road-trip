@@ -81,6 +81,17 @@ describe('Trip', function(){
     });
   });
 
+  describe('#save', function(){
+    it('should save a trip in the database', function(done){
+      t.save(function(){
+        Trip.all(function(err, trips){
+          expect(trips).to.have.length(4);
+          done();
+        });
+      });
+    });
+  });
+
   describe('.all', function(){
     it('should get all trips', function(done){
       Trip.all(function(err, trips){
@@ -89,5 +100,16 @@ describe('Trip', function(){
       });
     });
   });
+
+  describe('.findById', function(){
+    it('should return a trip from the database', function(done){
+      Trip.findById('000000000000000000000002', function(err, trip){
+        expect(trip._id.toString()).to.equal('000000000000000000000002');
+        expect(trip.cost).to.be.closeTo(178.90, 0.1);
+        done();
+      });
+    });
+  });
+
 });
 
