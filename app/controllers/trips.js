@@ -32,5 +32,7 @@ exports.show = function(req, res){
 };
 
 exports.updateDist = function(req, res){
-
+  Trip.updateDist(req.params.tripId, req.body, function(){
+    res.send({success:true});
+  });
 };

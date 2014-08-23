@@ -84,6 +84,12 @@ Trip.prototype.moveFile = function(files){
   this.photo = photos[0];
 };
 
+Trip.updateDist = function(id, body, cb){
+  id = Mongo.ObjectID(id);
+  // console.log(body.distance);
+  Trip.collection.update({_id:id}, {$set:{distance:parseFloat(body.distance)}}, cb);
+};
+
 Trip.prototype.save = function(cb){
   Trip.collection.save(this, cb);
 };
