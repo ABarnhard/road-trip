@@ -31,3 +31,6 @@ exports.show = function(req, res){
   });
 };
 
+exports.updateDist = function(req, res){
+
+};

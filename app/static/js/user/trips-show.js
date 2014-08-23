@@ -19,12 +19,13 @@
 
     calcRoute(waypoints, function(response){
       directionsDisplay.setDirections(response);
+      updateTripDistance(response);
     });
 
   });
 
   function createStops(e){
-    debugger;
+    // debugger;
     var stopGroups = $('.stop-group').toArray();
     console.log(stopGroups);
     async.map(stopGroups, function(stopGroup, done){
@@ -56,14 +57,14 @@
     $formGroup.append($i);
     $i = $('<input>').prop('type', 'hidden').prop('name', name + '[lng]').attr('data-id', 'lng');
     $formGroup.append($i);
-    $i = $('<input>').prop('type', 'hidden').prop('name', name + '[tripId]').attr('data-id', 'tripId').val($('form').attr('data-trip-id'));
+    $i = $('<input>').prop('type', 'hidden').prop('name', name + '[tripId]').attr('data-id', 'tripId').val($('h2').attr('data-trip-id'));
     $formGroup.append($i);
     $last.after($formGroup);
     $formGroup.children('input[type=text]').focus();
   }
 
   function makeWaypoints(){
-    var $stops = $('ol > li'),
+    var $stops = $('#stops > li'),
         waypoints = $stops.toArray().map(function(s){
           return new google.maps.LatLng(parseFloat($(s).attr('data-lat')), parseFloat($(s).attr('data-lng')));
         }),
@@ -72,6 +73,18 @@
     waypoints.unshift(new google.maps.LatLng(parseFloat($data.attr('data-orig-lat')), parseFloat($data.attr('data-orig-lng'))));
     waypoints.push(new google.maps.LatLng(parseFloat($data.attr('data-dest-lat')), parseFloat($data.attr('data-dest-lng'))));
     return waypoints;
+  }
+
+  function updateTripDistance(response){
+    // debugger;
+    var distance = response.routes[0].legs.reduce(function(total, leg){return total + leg.distance.value * 0.00062137;}, 0),
+        id       = $('h2').attr('data-trip-id'),
+        type     = 'put',
+        url      = '/trips/' + id + '/distance',
+        data     = 'distance=' + distance;
+    $.ajax({url:url, type:type, data:data, dataType:'json', success:function(data){
+      console.log(data);
+    }});
   }
 
 })();

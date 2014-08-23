@@ -4,19 +4,19 @@ block content
     .panel-body
       .row
         .col-xs-12
-          h2= trip.name
+          h2(data-trip-id='#{trip._id}')= trip.name
       .row
         .col-xs-12
           #trip-map(data-orig-name='#{trip.originLoc.name}', data-orig-lat='#{trip.originLoc.lat}', data-orig-lng='#{trip.originLoc.lng}', data-dest-name='#{trip.destinationLoc.name}', data-dest-lat='#{trip.destinationLoc.lat}', data-dest-lng='#{trip.destinationLoc.lng}')
       .row
         .col-xs-6
           h4 Stops:
-          ol
+          ul#stops
             each stop in trip.stops
               li(data-name='#{stop.loc.name}', data-lat='#{stop.loc.lat}', data-lng='#{stop.loc.lng}'): a(href='/trips/#{trip._id}/stops/#{stop._id}')= stop.loc.name
         .col-xs-6
           h4 Add Stops:
-          form(role='form', method='post', action='/trips/#{trip._id}/stops', data-trip-id='#{trip._id}')
+          form(role='form', method='post', action='/trips/#{trip._id}/stops')
             .form-group
               button.btn.btn-info.btn-xs(type='button') + Stops
             .form-group.stop-group

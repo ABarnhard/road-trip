@@ -36,7 +36,7 @@ function calcRoute(waypoints, cb){
     origin:origin,
     destination:destination,
     waypoints:waypoints,
-    optimizeWaypoints:false,
+    optimizeWaypoints:true,
     travelMode:google.maps.TravelMode.DRIVING
   };
   // console.log('request', request);
