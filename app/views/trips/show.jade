@@ -9,10 +9,6 @@ block content
         .col-xs-12
           #trip-map(data-orig-name='#{trip.originLoc.name}', data-orig-lat='#{trip.originLoc.lat}', data-orig-lng='#{trip.originLoc.lng}', data-dest-name='#{trip.destinationLoc.name}', data-dest-lat='#{trip.destinationLoc.lat}', data-dest-lng='#{trip.destinationLoc.lng}')
       .row
-        .col-xs-12
-          h4 Directions:
-          #directions
-      .row
         .col-xs-6
           h4 Stops:
           ol
@@ -23,9 +19,13 @@ block content
           form(role='form', method='post', action='/trips/#{trip._id}/stops')
             .form-group
               button.btn.btn-info.btn-xs(type='button') + Stops
-            .form-group.add-stop
+            .form-group.stop-group
               input.form-control(name='stops', type='text', placeholder='Tuscon, AZ')
             button.btn.btn-primary(type='submit') Add Stops
+      .row
+        .col-xs-12
+          h4 Directions:
+          #directions
 
 block scripts
   script(src='/js/user/trips-show.js')
