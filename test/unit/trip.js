@@ -57,7 +57,7 @@ describe('Trip', function(){
       expect(t.to).to.respondTo('getDate');
       expect(t.mpg).to.be.closeTo(55, 0.1);
       expect(t.costPerGal).to.be.closeTo(3.50, 0.1);
-      expect(t.stops).to.equal(0);
+      expect(t.numStops).to.equal(0);
       expect(t.photos).to.equal(0);
       expect(t.events).to.equal(0);
     });

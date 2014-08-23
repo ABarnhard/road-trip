@@ -4,12 +4,12 @@
 'use strict';
 
 var expect    = require('chai').expect,
-    Person    = require('../../app/models/stop'),
+    Stop      = require('../../app/models/stop'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
     db        = 'road-trip-test';
 
-describe('Person', function(){
+describe('Stop', function(){
   before(function(done){
     dbConnect(db, function(){
       done();
@@ -23,16 +23,16 @@ describe('Person', function(){
   });
 
   describe('constructor', function(){
-    it('should create a new Person object', function(){
-      var p = new Person();
-      expect(p).to.be.instanceof(Person);
+    it('should create a new Stop object', function(){
+      var s = new Stop();
+      expect(s).to.be.instanceof(Stop);
     });
   });
 
   describe('.all', function(){
-    it('should get all people', function(done){
-      Person.all(function(err, people){
-        expect(people).to.have.length(3);
+    it('should get all stops', function(done){
+      Stop.all(function(err, stops){
+        expect(stops).to.have.length(3);
         done();
       });
     });

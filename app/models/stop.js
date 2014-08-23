@@ -1,15 +1,25 @@
 'use strict';
 
-function Person(){
+var Mongo = require('mongodb');
+
+function Stop(o){
+  this.loc    = {name:o.name, lat:parseFloat(o.lat), lng:parseFloat(o.lng)};
+  this.tripId = Mongo.ObjectID(o.tripId);
+  this.photos = [];
+  this.events = [];
 }
 
-Object.defineProperty(Person, 'collection', {
+Object.defineProperty(Stop, 'collection', {
   get: function(){return global.mongodb.collection('stops');}
 });
 
-Person.all = function(cb){
-  Person.collection.find().toArray(cb);
+Stop.all = function(cb){
+  Stop.collection.find().toArray(cb);
 };
 
-module.exports = Person;
+Stop.find = function(id, cb){
+  Stop.collection.find({tripId:id}).toArray(cb);
+};
+
+module.exports = Stop;
 

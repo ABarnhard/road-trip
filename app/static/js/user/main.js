@@ -13,6 +13,14 @@ function geocode(address, cb){
   });
 }
 
+function cartographer(cssId, lat, lng, zoom){
+  'use strict';
+  var mapOptions = {center: new google.maps.LatLng(lat, lng), zoom: zoom, mapTypeId: google.maps.MapTypeId.ROADMAP},
+      map = new google.maps.Map(document.getElementById(cssId), mapOptions);
+
+  return map;
+}
+
 function calcRoute(waypoints, cb){
   'use strict';
   console.log('waypoints', waypoints);
