@@ -75,6 +75,12 @@ describe('Trip', function(){
     });
   });
 
+  describe('#delta', function(){
+    it('should return the difference between cash and total cost', function(){
+      expect(t.delta).to.be.closeTo(480.92, 0.1);
+    });
+  });
+
   describe('.all', function(){
     it('should get all trips', function(done){
       Trip.all(function(err, trips){

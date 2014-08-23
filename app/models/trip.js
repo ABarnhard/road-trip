@@ -31,6 +31,10 @@ Object.defineProperty(Trip.prototype, 'cost', {
   get: function(){return this.gallons * this.costPerGal;}
 });
 
+Object.defineProperty(Trip.prototype, 'delta', {
+  get: function(){return this.cash - this.cost;}
+});
+
 Trip.all = function(cb){
   Trip.collection.find().toArray(function(err, objs){
     var trips = objs.map(function(o){return _.create(Trip.prototype, o);});
