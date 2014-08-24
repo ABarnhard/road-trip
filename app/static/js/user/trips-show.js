@@ -1,66 +1,69 @@
-/* global cartographer, google, calcRoute, async, geocode */
+/* global cartographer, google, calcRoute, async, geocode, _ */
 
 (function(){
   'use strict';
 
-  var count = 1,
-      map;
+  var map,
+      directionsDisplay = new google.maps.DirectionsRenderer();
 
   $(document).ready(function(){
     $('button[type=button]').click(addStop);
-    $('button[type=submit]').click(createStops);
+    $('button[type=submit]').click(geocodeAndSubmit);
     map = cartographer('trip-map', 39.8282, -98.5795, 4);
-
-    var directionsDisplay = new google.maps.DirectionsRenderer(),
-        waypoints         = makeWaypoints();
 
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions'));
 
+    var waypoints = makeWaypoints();
     calcRoute(waypoints, function(response){
       directionsDisplay.setDirections(response);
-      updateTripDistance(response);
     });
 
   });
 
-  function createStops(e){
-    // debugger;
-    var stopGroups = $('.stop-group').toArray();
-    console.log(stopGroups);
-    async.map(stopGroups, function(stopGroup, done){
-      var locName = $(stopGroup).children('input[data-id=name]').val();
-      geocode(locName, function(name, lat, lng){
-        $(stopGroup).children('input[data-id=name]').val(name);
-        $(stopGroup).children('input[data-id=lat]').val(lat);
-        $(stopGroup).children('input[data-id=lng]').val(lng);
-        done(null, stopGroup);
-      });
-    }, function(err, geocodedDivs){
-      console.log(geocodedDivs);
-      $('form').submit();
+  function geocodeAndSubmit(e){
+    var locations = $('input').toArray().map(function(input){
+      return $(input).val().trim();
     });
+    locations = _.compact(locations);
+    if(locations.length){async.map(locations, lookUpGeocode, appendAndSubmit);}
     e.preventDefault();
   }
 
-  function addStop(){
-    count++;
-    var $last      = $('form > .stop-group:last-of-type'),
-        $formGroup = $('<div>'),
-        name       = 'stop' + count,
-        $i;
+  function lookUpGeocode(location, cb){
+    geocode(location, function(name, lat, lng){
+      cb(null, {name:name, lat:lat, lng:lng});
+    });
+  }
 
-    $formGroup.addClass('form-group').addClass('stop-group');
-    $i = $('<input>').prop('type', 'text').prop('name', name + '[name]').attr('data-id', 'name').addClass('form-control');
-    $formGroup.append($i);
-    $i = $('<input>').prop('type', 'hidden').prop('name', name + '[lat]').attr('data-id', 'lat');
-    $formGroup.append($i);
-    $i = $('<input>').prop('type', 'hidden').prop('name', name + '[lng]').attr('data-id', 'lng');
-    $formGroup.append($i);
-    $i = $('<input>').prop('type', 'hidden').prop('name', name + '[tripId]').attr('data-id', 'tripId').val($('h2').attr('data-trip-id'));
-    $formGroup.append($i);
-    $last.after($formGroup);
-    $formGroup.children('input[type=text]').focus();
+  function appendAndSubmit(err, geocodedLocations){
+    geocodedLocations.forEach(function(location, index){
+      $('form').append('<input name="stops['+index+'][name]" value="'+location.name+'" type="hidden">');
+      $('form').append('<input name="stops['+index+'][lat]" value="'+location.lat+'" type="hidden">');
+      $('form').append('<input name="stops['+index+'][lng]" value="'+location.lng+'" type="hidden">');
+    });
+    var url = $('form').attr('action'),
+        data = $('form').serialize(),
+        type = $('form').attr('method');
+    $.ajax({url:url, type:type, data:data, dataType:'json', success:function(data){
+      data.forEach(function(s){
+        $('#stops').append('<li data-name="'+s.name+'" data-lat="'+s.lat+'" data-lng="'+s.lng+'"><a href="/trips/'+s.tripId+'/stops/'+s._id+'">'+s.name+'</a></li>');
+      });
+      var waypoints = makeWaypoints();
+      calcRoute(waypoints, function(response){
+        directionsDisplay.setDirections(response);
+        updateTripDistance(response);
+      });
+    }});
+  }
+
+  function addStop(){
+    var $last  = $('form > .stop-group:last-of-type'),
+        $clone = $last.clone();
+    // debugger;
+    $clone.children('input').val('');
+    $last.after($clone);
+    $clone.children('input').focus();
   }
 
   function makeWaypoints(){

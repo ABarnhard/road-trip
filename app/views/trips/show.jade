@@ -3,8 +3,10 @@ block content
   .panel.panel-default
     .panel-body
       .row
-        .col-xs-12
+        .col-xs-6
           h2(data-trip-id='#{trip._id}')= trip.name
+        .col-xs-6
+          #car-photo(style='background-image:url(#{trip.carPhoto})')
       .row
         .col-xs-12
           #trip-map(data-orig-name='#{trip.originLoc.name}', data-orig-lat='#{trip.originLoc.lat}', data-orig-lng='#{trip.originLoc.lng}', data-dest-name='#{trip.destinationLoc.name}', data-dest-lat='#{trip.destinationLoc.lat}', data-dest-lng='#{trip.destinationLoc.lng}')
@@ -20,10 +22,7 @@ block content
             .form-group
               button.btn.btn-info.btn-xs(type='button') + Stops
             .form-group.stop-group
-              input.form-control(name='stop1[name]', type='text', data-id='name', placeholder='Tucson, AZ')
-              input(type='hidden', name='stop1[lat]', data-id='lat')
-              input(type='hidden', name='stop1[lng]', data-id='lng')
-              input(type='hidden', name='stop1[tripId]', data-id='tripId', value='#{trip._id}')
+              input.form-control(name='stopNames', type='text', placeholder='Tucson, AZ')
             button.btn.btn-primary(type='submit') Add Stops
       .row
         .col-xs-12

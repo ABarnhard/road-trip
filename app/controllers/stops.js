@@ -3,10 +3,14 @@
 var Stop = require('../models/stop');
 
 exports.create = function(req, res){
-  console.log(req.body);
-  Stop.create(req.body, function(){
-    res.redirect('/trips/' + req.params.tripId);
+  req.body.tripId = req.params.tripId;
+  // console.log(req.body);
+  // res.redirect('/trips/' + req.params.tripId);
+  Stop.create(req.body, function(data){
+    res.send(data);
+    // res.redirect('/trips/' + req.params.tripId);
   });
+
 };
 
 exports.show = function(req, res){

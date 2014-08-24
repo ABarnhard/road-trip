@@ -81,7 +81,7 @@ Trip.prototype.moveFile = function(files){
     return relPath;
   });
   photos = _.compact(photos);
-  this.photo = photos[0];
+  this.carPhoto = photos[0];
 };
 
 Trip.updateDist = function(id, body, cb){

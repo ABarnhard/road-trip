@@ -34,17 +34,28 @@ Stop.findById = function(id, cb){
 };
 
 Stop.create = function(obj, cb){
-  var stops = Object.keys(obj).map(function(k){
-    return obj[k];
+  var stops = obj.stops.map(function(s){
+    s.tripId = obj.tripId;
+    return s;
   });
-  async.map(stops, function(o, done){
-    var s = new Stop(o);
-    s.save(function(){
+
+  async.map(stops, saveStops, finished);
+
+  function saveStops(obj, done){
+    var s = new Stop(obj);
+    Stop.collection.save(s, function(){
+      console.log(s);
       done(null, s);
     });
-  }, function(err, savedStops){
-    cb();
-  });
+  }
+
+  function finished(err, savedStops){
+    var stopData = savedStops.map(function(s){
+      return {name:s.loc.name, lat:s.loc.lat, lng:s.loc.lng, _id:s._id, tripId:s.tripId};
+    });
+    cb(stopData);
+  }
+
 };
 
 Stop.prototype.moveFiles = function(files){

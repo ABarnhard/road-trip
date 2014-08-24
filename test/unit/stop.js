@@ -7,7 +7,13 @@ var expect    = require('chai').expect,
     Stop      = require('../../app/models/stop'),
     dbConnect = require('../../app/lib/mongodb'),
     cp        = require('child_process'),
-    db        = 'road-trip-test';
+    db        = 'road-trip-test',
+    obj       = {
+      name:'Test, USA',
+      lat: '0',
+      lng: '0',
+      tripId: '000000000000000000000002'
+    };
 
 describe('Stop', function(){
   before(function(done){
@@ -24,7 +30,7 @@ describe('Stop', function(){
 
   describe('constructor', function(){
     it('should create a new Stop object', function(){
-      var s = new Stop();
+      var s = new Stop(obj);
       expect(s).to.be.instanceof(Stop);
     });
   });
