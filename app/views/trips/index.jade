@@ -34,7 +34,7 @@ block content
                   td= trip.destinationLoc.name
                   td= moment(trip.from).format('MMM Do YY')
                   td= moment(trip.to).format('MMM Do YY')
-                  td= trip.stops
+                  td= trip.numStops
                   td #{trip.distance.toFixed(2)} mi
                   td= trip.mpg
                   td $#{trip.costPerGal.toFixed(2)}
