@@ -1,5 +1,39 @@
 extends ../shared/template
 block content
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-xs-12
+          h2= stop.loc.name
+      .row
+        .col-xs-12
+          #stop-map(data-name='#{stop.loc.name}', data-lat='#{stop.loc.lat}', data-lng='#{stop.loc.lng}')
+      .row
+        .col-xs-12
+          .row
+            .col-xs-6
+              ul#events
+                each event in stop.events
+                  li= event
+            .col-xs-6
+              form#eventsForm(role='form', method='post', action='/trips/#{stop.tripId}/stops/#{stop._id}/events')
+                .form-group
+                  button#addEvent.btn.btn-info.btn-xs(type='button') + Event
+                .form-group.event-group
+                  input.form-control(name='events', type='text', placeholder='hang gliding')
+                button#submitEvent.btn.btn-primary(type='submit') Add Events
+          .row
+            .col-xs-12
+              #spacer
+          .row
+            .col-xs-6
+              each photo in stop.photos
+                .stop-photo(style='background-image:url(#{photo})')
+            .col-xs-6
+              form#photosForm(role='form', method='post', action='/trips/#{stop.tripId}/stops/#{stop._id}/photos' enctype='multipart/form-data')
+                .form-group
+                  input.form-control(name='photos', type='file', multiple=true)
+                button#submitPhotos.btn.btn-primary(type='submit') Add Photos
 
 block scripts
   script(src='/js/user/stops-show.js')

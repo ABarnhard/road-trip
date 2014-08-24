@@ -5,10 +5,9 @@ var Stop = require('../models/stop');
 exports.create = function(req, res){
   req.body.tripId = req.params.tripId;
   // console.log(req.body);
-  // res.redirect('/trips/' + req.params.tripId);
   Stop.create(req.body, function(data){
+    // console.log(data);
     res.send(data);
-    // res.redirect('/trips/' + req.params.tripId);
   });
 
 };

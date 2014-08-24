@@ -46,6 +46,7 @@
         data = $('form').serialize(),
         type = $('form').attr('method');
     $.ajax({url:url, type:type, data:data, dataType:'json', success:function(data){
+      resetForm();
       data.forEach(function(s){
         $('#stops').append('<li data-name="'+s.name+'" data-lat="'+s.lat+'" data-lng="'+s.lng+'"><a href="/trips/'+s.tripId+'/stops/'+s._id+'">'+s.name+'</a></li>');
       });
@@ -55,6 +56,12 @@
         updateTripDistance(response);
       });
     }});
+  }
+
+  function resetForm(){
+    $('form').children('input[type=hidden]').remove();
+    $('form').children('.stop-group').remove();
+    $('form > .form-group:first-of-type').after('<div class="form-group stop-group"><input class="form-control" type="text" name="stopNames" placeholder="Tucson, AZ" /></div>');
   }
 
   function addStop(){
