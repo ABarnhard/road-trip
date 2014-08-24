@@ -90,6 +90,24 @@ Trip.updateDist = function(id, body, cb){
   Trip.collection.update({_id:id}, {$set:{distance:parseFloat(body.distance)}}, cb);
 };
 
+Trip.updateStops = function(id, count, cb){
+  id = Mongo.ObjectID(id);
+  // console.log(body.distance);
+  Trip.collection.update({_id:id}, {$inc:{numStops:parseInt(count)}}, cb);
+};
+
+Trip.updatePhotos = function(id, count, cb){
+  id = Mongo.ObjectID(id);
+  // console.log(body.distance);
+  Trip.collection.update({_id:id}, {$inc:{photos:parseInt(count)}}, cb);
+};
+
+Trip.updateEvents = function(id, count, cb){
+  id = Mongo.ObjectID(id);
+  // console.log(id, count);
+  Trip.collection.update({_id:id}, {$inc:{events:parseInt(count)}}, cb);
+};
+
 Trip.prototype.save = function(cb){
   Trip.collection.save(this, cb);
 };

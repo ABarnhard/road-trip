@@ -58,6 +58,33 @@ Stop.create = function(obj, cb){
 
 };
 
+Stop.addEvents = function(obj, cb){
+  Stop.findById(obj.stopId, function(err, s){
+    var count = 0;
+    if(typeof obj.events !== 'string'){
+      count = obj.events.length;
+      obj.events.forEach(function(event){
+        s.events.push(event);
+      });
+    }else{
+      count = 1;
+      s.events.push(obj.events);
+    }
+    s.save(function(){
+      cb(count);
+    });
+  });
+};
+
+Stop.addPhotos = function(id, files, cb){
+  Stop.findById(id, function(err, s){
+    var count = s.moveFiles(files);
+    s.save(function(){
+      cb(count);
+    });
+  });
+};
+
 Stop.prototype.moveFiles = function(files){
   var baseDir = __dirname + '/../static',
       relDir  = '/img/' + this._id,
@@ -87,6 +114,7 @@ Stop.prototype.moveFiles = function(files){
       self.photos.push(photo);
     });
   }
+  return photos.length;
 };
 
 Stop.prototype.save = function(cb){
